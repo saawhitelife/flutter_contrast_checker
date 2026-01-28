@@ -37,6 +37,7 @@ class _ContrastCheckerOverlayState extends State<ContrastCheckerOverlay> {
   Offset? _buttonOffsetAtDragStart;
 
   bool _showPickers = false;
+  bool _useDarkTheme = false;
 
   void _openPickers() {
     setState(() => _showPickers = true);
@@ -99,53 +100,76 @@ class _ContrastCheckerOverlayState extends State<ContrastCheckerOverlay> {
       return widget.child;
     }
 
-    return EyeDropper(
-      child: Builder(
-        builder: (BuildContext eyeDropperContext) {
-          return LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              final Size size = constraints.biggest;
-              return Stack(
-                children: <Widget>[
-                  widget.child,
-                  if (!_showPickers)
-                    Positioned(
-                      left: _buttonOffset.dx,
-                      top: _buttonOffset.dy,
-                      child: _FloatingContrastButton(
-                        size: _buttonSize,
-                        onTap: _openPickers,
-                        onLongPressStart: _startDrag,
-                        onLongPressMoveUpdate: (LongPressMoveUpdateDetails details) => _updateDrag(details, size),
-                      ),
-                    ),
-                  if (_showPickers)
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: SafeArea(
-                        minimum: const EdgeInsets.all(16),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            _LensRow(
-                              foreground: _foreground,
-                              background: _background,
-                              onPickForeground: () => _pickColor(eyeDropperContext, true),
-                              onPickBackground: () => _pickColor(eyeDropperContext, false),
-                            ),
-                            const SizedBox(height: 14),
-                            _ContrastCard(foreground: _foreground, background: _background, onClose: _closePickers),
-                          ],
+    final ThemeData baseTheme = Theme.of(context);
+
+    final ContrastCheckerTheme contrastTheme = switch (_useDarkTheme) {
+      true => ContrastCheckerTheme.dark,
+      _ => ContrastCheckerTheme.light,
+    };
+
+    final Map<Object, ThemeExtension<dynamic>> mergedExtensions = Map<Object, ThemeExtension<dynamic>>.from(
+      baseTheme.extensions,
+    );
+    mergedExtensions[ContrastCheckerTheme] = contrastTheme;
+
+    return Theme(
+      data: baseTheme.copyWith(extensions: mergedExtensions.values.toList()),
+      child: EyeDropper(
+        child: Builder(
+          builder: (BuildContext eyeDropperContext) {
+            return LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final Size size = constraints.biggest;
+                return Stack(
+                  children: <Widget>[
+                    widget.child,
+                    if (!_showPickers)
+                      Positioned(
+                        left: _buttonOffset.dx,
+                        top: _buttonOffset.dy,
+                        child: _FloatingContrastButton(
+                          size: _buttonSize,
+                          onTap: _openPickers,
+                          onLongPressStart: _startDrag,
+                          onLongPressMoveUpdate: (LongPressMoveUpdateDetails details) => _updateDrag(details, size),
                         ),
                       ),
-                    ),
-                ],
-              );
-            },
-          );
-        },
+                    if (_showPickers)
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: SafeArea(
+                          minimum: const EdgeInsets.all(16),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              _LensRow(
+                                foreground: _foreground,
+                                background: _background,
+                                onPickForeground: () => _pickColor(eyeDropperContext, true),
+                                onPickBackground: () => _pickColor(eyeDropperContext, false),
+                              ),
+                              const SizedBox(height: 14),
+                              _ContrastCard(
+                                foreground: _foreground,
+                                background: _background,
+                                isDark: _useDarkTheme,
+                                onThemeToggle: (bool value) {
+                                  setState(() => _useDarkTheme = value);
+                                },
+                                onClose: _closePickers,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                  ],
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -294,10 +318,18 @@ class _ColorLensButton extends StatelessWidget {
 }
 
 class _ContrastCard extends StatelessWidget {
-  const _ContrastCard({required this.foreground, required this.background, required this.onClose});
+  const _ContrastCard({
+    required this.foreground,
+    required this.background,
+    required this.isDark,
+    required this.onThemeToggle,
+    required this.onClose,
+  });
 
   final Color foreground;
   final Color background;
+  final bool isDark;
+  final ValueChanged<bool> onThemeToggle;
   final VoidCallback onClose;
 
   @override
@@ -337,6 +369,24 @@ class _ContrastCard extends StatelessWidget {
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: theme.title),
                     ),
                     const Spacer(),
+                    Row(
+                      children: <Widget>[
+                        Icon(
+                          switch (isDark) {
+                            true => Icons.dark_mode,
+                            false => Icons.light_mode,
+                          },
+                          size: 16,
+                          color: theme.muted,
+                        ),
+                        Switch(
+                          value: isDark,
+                          onChanged: onThemeToggle,
+                          activeThumbColor: Theme.of(context).colorScheme.primary,
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                      ],
+                    ),
                     IconButton(
                       onPressed: onClose,
                       icon: const Icon(Icons.close, size: 18),

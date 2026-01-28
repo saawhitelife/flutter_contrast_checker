@@ -12,7 +12,10 @@ class ContrastDemoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Contrast Checker Demo',
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0EA5E9)), useMaterial3: true),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0EA5E9)),
+        useMaterial3: true,
+      ),
       builder: (context, child) =>
           ContrastCheckerOverlay(initialForeground: Colors.red, initialBackground: Colors.white, child: child!),
       initialRoute: '/',
