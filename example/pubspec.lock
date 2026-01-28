@@ -58,7 +58,7 @@ packages:
     source: hosted
     version: "3.0.3"
   eye_dropper:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: eye_dropper
       sha256: "2a594420d49bc64117c65fdcd06711e62925ddbf5f6eaff80428800c9b749dc4"
