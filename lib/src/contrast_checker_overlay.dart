@@ -27,7 +27,7 @@ class ContrastCheckerOverlay extends StatefulWidget {
 
 class _ContrastCheckerOverlayState extends State<ContrastCheckerOverlay> {
   static const double _buttonSize = 56.0;
-  static const double _overlayPadding = 12.0;
+  static const double _overlayPadding = 0.0;
 
   late Color _foreground = widget.initialForeground ?? context.contrastCheckerTheme.body;
   late Color _background = widget.initialBackground ?? context.contrastCheckerTheme.surface;
@@ -61,11 +61,10 @@ class _ContrastCheckerOverlayState extends State<ContrastCheckerOverlay> {
   }
 
   void _setButtonOffset(Offset offset, Size size) {
-    final EdgeInsets padding = MediaQuery.of(context).padding;
-    final double minX = _overlayPadding + padding.left;
-    final double minY = _overlayPadding + padding.top;
-    final double maxX = math.max(minX, size.width - _buttonSize - _overlayPadding - padding.right);
-    final double maxY = math.max(minY, size.height - _buttonSize - _overlayPadding - padding.bottom);
+    final double minX = _overlayPadding;
+    final double minY = MediaQuery.of(context).padding.top + _overlayPadding;
+    final double maxX = math.max(minX, size.width - _buttonSize - _overlayPadding);
+    final double maxY = math.max(minY, size.height - _buttonSize - _overlayPadding);
     final double clampedX = offset.dx.clamp(minX, maxX);
     final double clampedY = offset.dy.clamp(minY, maxY);
     setState(() => _buttonOffset = Offset(clampedX, clampedY));
