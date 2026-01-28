@@ -14,9 +14,22 @@ class ContrastCheckerOverlay extends StatefulWidget {
     this.initialBackground,
   });
 
+  /// Subtree that receives the overlay button and pickers.
   final Widget child;
+
+  /// Whether the overlay UI is enabled.
+  ///
+  /// When false, [child] is returned as-is.
   final bool enabled;
+
+  /// Initial foreground color used for contrast calculations.
+  ///
+  /// Defaults to the overlay theme text color.
   final Color? initialForeground;
+
+  /// Initial background color used for contrast calculations.
+  ///
+  /// Defaults to the overlay theme surface color.
   final Color? initialBackground;
 
   @override
