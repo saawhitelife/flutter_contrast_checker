@@ -1,0 +1,17 @@
+{
+  "dart.lineLength": 120,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "search.exclude": {
+    "**/.fvm": true,
+    "**/.history": true,
+    "**/.dart_tool": true,
+    "**/build": true
+  },
+  "files.watcherExclude": {
+    "**/.fvm": true
+  },
+  "dart.runPubGetOnPubspecChanges": "always",
+}
