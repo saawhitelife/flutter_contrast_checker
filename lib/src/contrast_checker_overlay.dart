@@ -225,7 +225,7 @@ class _LensRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        _ColorLensButton(label: 'Text', color: foreground, onPressed: onPickForeground),
+        _ColorLensButton(label: 'Foreground', color: foreground, onPressed: onPickForeground),
         const SizedBox(width: 12),
         _ColorLensButton(label: 'Background', color: background, onPressed: onPickBackground),
       ],
@@ -356,7 +356,7 @@ class _ContrastCard extends StatelessWidget {
                 const SizedBox(height: 14),
                 Row(
                   children: <Widget>[
-                    _ColorChip(label: 'Text', color: foreground),
+                    _ColorChip(label: 'Foreground', color: foreground),
                     const SizedBox(width: 10),
                     _ColorChip(label: 'Background', color: background),
                   ],
