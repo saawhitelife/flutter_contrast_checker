@@ -1,13 +1,17 @@
-# flutter_contrast_checker
+# Check contrast anywhere in the app
 
-Overlay contrast checker for Flutter apps. It shows a draggable floating button; tapping it reveals two color pickers (powered by eye_dropper) and a modern WCAG contrast card. Close the card to return to the floating button.
+Overlay contrast checker for Flutter apps. It shows a draggable floating button; tapping it reveals two color pickers (powered by [eye_dropper](https://pub.dev/packages/eye_dropper)) and a modern WCAG contrast card. Close the card to return to the floating button.
+
+<div align="center">
+  <img src="screenshots/text.gif" alt="Contrast checker demo (text)" width="48%">
+  <img src="screenshots/colors.gif" alt="Contrast checker demo (colors)" width="48%">
+</div>
 
 ## Features
 
 - Always-on draggable overlay trigger (long-press to reposition)
-- Dual pickers with lens buttons for text and background colors
+- Dual pickers with lens buttons for foreground and background colors
 - WCAG 2.1 contrast ratio + AA/AAA badges for normal/large text
-- Modern, light UI with gradients, blur, and polished elevation
 
 ## Getting started
 
@@ -15,12 +19,14 @@ Add the dependency:
 
 ```yaml
 dependencies:
-  flutter_contrast_checker: ^0.0.1
+  flutter_contrast_checker: ^0.1.0
 ```
+
+Minimum supported Flutter SDK is `>=3.10.4`.
 
 ## Usage
 
-Wrap your app (or any subtree) with the overlay. It already embeds `EyeDropper`.
+Wrap your app (or any subtree) with the overlay:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -43,6 +49,29 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-## Additional information
+### Using `MaterialApp.builder` (global overlay)
 
-The picker uses the `eye_dropper` package under the hood. Use long-press on the floating button to drag it anywhere within the app window.
+```dart
+return MaterialApp(
+  builder: (context, child) => ContrastCheckerOverlay(child: child!),
+  home: const HomeScreen(),
+);
+```
+
+### Initial colors
+
+```dart
+ContrastCheckerOverlay(
+  initialForeground: Colors.black,
+  initialBackground: Colors.white,
+  child: child,
+);
+```
+
+## Contributing
+
+Contributions are welcome. Please open an issue or a pull request.
+
+## License
+
+MIT. See `LICENSE`.
