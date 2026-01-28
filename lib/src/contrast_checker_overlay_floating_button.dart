@@ -1,5 +1,6 @@
 part of 'contrast_checker_overlay.dart';
 
+/// Floating trigger button that opens the overlay.
 class _FloatingContrastButton extends StatelessWidget {
   const _FloatingContrastButton({
     required this.size,

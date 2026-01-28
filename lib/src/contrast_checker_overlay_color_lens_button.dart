@@ -1,5 +1,6 @@
 part of 'contrast_checker_overlay.dart';
 
+/// Button that launches the EyeDropper for a specific color target.
 class _ColorLensButton extends StatelessWidget {
   const _ColorLensButton({required this.label, required this.color, required this.onPressed});
 

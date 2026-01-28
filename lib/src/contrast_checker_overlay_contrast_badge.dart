@@ -1,5 +1,6 @@
 part of 'contrast_checker_overlay.dart';
 
+/// Pass/fail badge for a specific WCAG threshold.
 class _ContrastBadge extends StatelessWidget {
   const _ContrastBadge({required this.label, required this.pass});
 

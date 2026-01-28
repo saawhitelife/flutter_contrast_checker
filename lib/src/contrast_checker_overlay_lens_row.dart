@@ -1,5 +1,6 @@
 part of 'contrast_checker_overlay.dart';
 
+/// Row that hosts the two lens buttons (foreground/background).
 class _LensRow extends StatelessWidget {
   const _LensRow({
     required this.foreground,

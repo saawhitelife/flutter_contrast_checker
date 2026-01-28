@@ -1,5 +1,10 @@
 part of 'contrast_checker_overlay.dart';
 
+/// Adds a draggable floating trigger and contrast analysis overlay.
+///
+/// The overlay button can be repositioned with a long-press drag. Tapping the
+/// button shows dual color pickers and a contrast card with WCAG ratings.
+/// Close the card to return to the floating button.
 class ContrastCheckerOverlay extends StatefulWidget {
   const ContrastCheckerOverlay({
     super.key,
@@ -18,6 +23,7 @@ class ContrastCheckerOverlay extends StatefulWidget {
   State<ContrastCheckerOverlay> createState() => _ContrastCheckerOverlayState();
 }
 
+/// Internal state holder for the overlay UI and EyeDropper interactions.
 class _ContrastCheckerOverlayState extends State<ContrastCheckerOverlay> {
   static const double _buttonSize = 56.0;
   static const double _overlayPadding = 0.0;

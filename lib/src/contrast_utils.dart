@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
@@ -18,6 +20,7 @@ const double _kLuminanceRed = 0.2126;
 const double _kLuminanceGreen = 0.7152;
 const double _kLuminanceBlue = 0.0722;
 
+/// Aggregated WCAG contrast results for a color pair.
 class ContrastResult {
   const ContrastResult({
     required this.ratio,
@@ -34,6 +37,9 @@ class ContrastResult {
   final bool aaaLarge;
 }
 
+/// Computes WCAG 2.x contrast ratio for two colors.
+///
+/// Uses relative luminance per WCAG and returns a ratio in [1, 21].
 double wcagContrastRatio(Color a, Color b) {
   final double l1 = _relativeLuminance(a);
   final double l2 = _relativeLuminance(b);
@@ -42,6 +48,7 @@ double wcagContrastRatio(Color a, Color b) {
   return (lighter + _kContrastOffset) / (darker + _kContrastOffset);
 }
 
+/// Computes WCAG AA/AAA pass/fail results for normal and large text.
 ContrastResult wcagContrastResult(Color a, Color b) {
   final double ratio = wcagContrastRatio(a, b);
   return ContrastResult(
@@ -53,6 +60,7 @@ ContrastResult wcagContrastResult(Color a, Color b) {
   );
 }
 
+/// Formats a color as uppercase RGB hex (e.g., #12AB34).
 String colorToHex(Color color) {
   final int r = _channelToInt(color.red.toDouble());
   final int g = _channelToInt(color.green.toDouble());
@@ -64,6 +72,7 @@ String colorToHex(Color color) {
       .toUpperCase();
 }
 
+/// Relative luminance per WCAG definition.
 double _relativeLuminance(Color color) {
   final double r = _linearize(_channelToUnit(color.red.toDouble()));
   final double g = _linearize(_channelToUnit(color.green.toDouble()));
@@ -71,6 +80,7 @@ double _relativeLuminance(Color color) {
   return _kLuminanceRed * r + _kLuminanceGreen * g + _kLuminanceBlue * b;
 }
 
+/// Converts an sRGB channel to linear light.
 double _linearize(double channel) {
   return switch (channel) {
     final double channel when channel <= _kLinearizeThreshold => channel / _kLinearizeDivisor,
@@ -78,6 +88,7 @@ double _linearize(double channel) {
   };
 }
 
+/// Normalizes a channel to 0..1 if needed.
 double _channelToUnit(double channel) {
   return switch (channel) {
     final double channel when channel <= 1.0 => channel,
@@ -85,6 +96,7 @@ double _channelToUnit(double channel) {
   };
 }
 
+/// Converts a channel to an 8-bit integer.
 int _channelToInt(double channel) {
   return switch (channel) {
     final double channel when channel <= 1.0 => (channel * _kRgbChannelMax).round(),

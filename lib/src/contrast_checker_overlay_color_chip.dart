@@ -1,5 +1,6 @@
 part of 'contrast_checker_overlay.dart';
 
+/// Small chip showing a color swatch and its hex value.
 class _ColorChip extends StatelessWidget {
   const _ColorChip({required this.label, required this.color});
 

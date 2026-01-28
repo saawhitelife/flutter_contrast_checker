@@ -1,3 +1,7 @@
+/// Overlay contrast checker for Flutter apps.
+///
+/// Shows a draggable floating button that opens dual color pickers and a WCAG
+/// contrast card. Close the card to return to the button.
 library;
 
 import 'dart:math' as math;

@@ -1,5 +1,6 @@
 part of 'contrast_checker_overlay.dart';
 
+/// Contrast summary card with ratio, badges, and theme toggle.
 class _ContrastCard extends StatelessWidget {
   const _ContrastCard({
     required this.foreground,
@@ -65,6 +66,7 @@ class _ContrastCard extends StatelessWidget {
                         Switch(
                           value: isDark,
                           onChanged: onThemeToggle,
+                          // ignore: deprecated_member_use
                           activeColor: Theme.of(context).colorScheme.primary,
                           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
