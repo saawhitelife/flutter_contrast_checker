@@ -185,7 +185,7 @@ class _FloatingContrastButton extends StatelessWidget {
       onLongPressStart: onLongPressStart,
       onLongPressMoveUpdate: onLongPressMoveUpdate,
       child: Material(
-        color: Colors.transparent,
+        type: MaterialType.transparency,
         child: Container(
           height: size,
           width: size,
@@ -245,7 +245,7 @@ class _ColorLensButton extends StatelessWidget {
     final ColorScheme scheme = Theme.of(context).colorScheme;
     final ContrastCheckerTheme theme = context.contrastCheckerTheme;
     return Material(
-      color: Colors.transparent,
+      type: MaterialType.transparency,
       child: InkWell(
         onTap: onPressed,
         borderRadius: BorderRadius.circular(24),
@@ -303,7 +303,7 @@ class _ContrastCard extends StatelessWidget {
     final String ratioText = result.ratio.toStringAsFixed(2);
 
     return Material(
-      color: Colors.transparent,
+      type: MaterialType.transparency,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
         child: BackdropFilter(
