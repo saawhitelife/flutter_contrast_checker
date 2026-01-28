@@ -42,7 +42,7 @@ class ContrastCheckerTheme extends ThemeExtension<ContrastCheckerTheme> {
   final Color cardGradientStart;
   final Color cardGradientEnd;
 
-  static const ContrastCheckerTheme fallback = ContrastCheckerTheme(
+  static const ContrastCheckerTheme light = ContrastCheckerTheme(
     surface: Color(0xFFFFFFFF),
     surfaceAlt: Color(0xFFF8FAFC),
     border: Color(0xFFE2E8F0),
@@ -61,6 +61,27 @@ class ContrastCheckerTheme extends ThemeExtension<ContrastCheckerTheme> {
     lensBorder: Color(0xFFE2E8F0),
     cardGradientStart: Color(0xFFF8FAFC),
     cardGradientEnd: Color(0xFFE0F2FE),
+  );
+
+  static const ContrastCheckerTheme dark = ContrastCheckerTheme(
+    surface: Color(0xFF0F172A),
+    surfaceAlt: Color(0xFF111827),
+    border: Color(0xFF1F2937),
+    shadow: Color(0xFF000000),
+    title: Color(0xFFF8FAFC),
+    body: Color(0xFFE2E8F0),
+    muted: Color(0xFF94A3B8),
+    accent: Color(0xFF38BDF8),
+    successBg: Color(0xFF064E3B),
+    successText: Color(0xFF86EFAC),
+    errorBg: Color(0xFF7F1D1D),
+    errorText: Color(0xFFFCA5A5),
+    buttonGradientStart: Color(0xFF22D3EE),
+    buttonGradientEnd: Color(0xFF3B82F6),
+    lensBackground: Color(0xFF111827),
+    lensBorder: Color(0xFF1F2937),
+    cardGradientStart: Color(0xFF0B1220),
+    cardGradientEnd: Color(0xFF111827),
   );
 
   @override
@@ -124,10 +145,8 @@ class ContrastCheckerTheme extends ThemeExtension<ContrastCheckerTheme> {
       successText: Color.lerp(successText, other.successText, t) ?? successText,
       errorBg: Color.lerp(errorBg, other.errorBg, t) ?? errorBg,
       errorText: Color.lerp(errorText, other.errorText, t) ?? errorText,
-      buttonGradientStart:
-          Color.lerp(buttonGradientStart, other.buttonGradientStart, t) ?? buttonGradientStart,
-      buttonGradientEnd:
-          Color.lerp(buttonGradientEnd, other.buttonGradientEnd, t) ?? buttonGradientEnd,
+      buttonGradientStart: Color.lerp(buttonGradientStart, other.buttonGradientStart, t) ?? buttonGradientStart,
+      buttonGradientEnd: Color.lerp(buttonGradientEnd, other.buttonGradientEnd, t) ?? buttonGradientEnd,
       lensBackground: Color.lerp(lensBackground, other.lensBackground, t) ?? lensBackground,
       lensBorder: Color.lerp(lensBorder, other.lensBorder, t) ?? lensBorder,
       cardGradientStart: Color.lerp(cardGradientStart, other.cardGradientStart, t) ?? cardGradientStart,
@@ -139,6 +158,6 @@ class ContrastCheckerTheme extends ThemeExtension<ContrastCheckerTheme> {
 extension ContrastCheckerThemeX on BuildContext {
   ContrastCheckerTheme get contrastCheckerTheme {
     final ContrastCheckerTheme? theme = Theme.of(this).extension<ContrastCheckerTheme>();
-    return theme ?? ContrastCheckerTheme.fallback;
+    return theme ?? ContrastCheckerTheme.light;
   }
 }
