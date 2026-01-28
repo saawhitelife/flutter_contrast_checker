@@ -54,7 +54,7 @@ class _ContrastCheckerOverlayState extends State<ContrastCheckerOverlay> {
   }
 
   void _setButtonOffset(Offset offset, Size size) {
-    final double minX = _overlayPadding;
+    const double minX = _overlayPadding;
     final double minY = MediaQuery.of(context).padding.top + _overlayPadding;
     final double maxX = math.max(minX, size.width - _buttonSize - _overlayPadding);
     final double maxY = math.max(minY, size.height - _buttonSize - _overlayPadding);

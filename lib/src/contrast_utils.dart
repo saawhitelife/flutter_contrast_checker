@@ -54,9 +54,9 @@ ContrastResult wcagContrastResult(Color a, Color b) {
 }
 
 String colorToHex(Color color) {
-  final int r = _channelToInt(color.r);
-  final int g = _channelToInt(color.g);
-  final int b = _channelToInt(color.b);
+  final int r = _channelToInt(color.red.toDouble());
+  final int g = _channelToInt(color.green.toDouble());
+  final int b = _channelToInt(color.blue.toDouble());
   return '#'
           '${r.toRadixString(_kHexRadix).padLeft(_kHexPadLength, '0')}'
           '${g.toRadixString(_kHexRadix).padLeft(_kHexPadLength, '0')}'
@@ -65,9 +65,9 @@ String colorToHex(Color color) {
 }
 
 double _relativeLuminance(Color color) {
-  final double r = _linearize(_channelToUnit(color.r));
-  final double g = _linearize(_channelToUnit(color.g));
-  final double b = _linearize(_channelToUnit(color.b));
+  final double r = _linearize(_channelToUnit(color.red.toDouble()));
+  final double g = _linearize(_channelToUnit(color.green.toDouble()));
+  final double b = _linearize(_channelToUnit(color.blue.toDouble()));
   return _kLuminanceRed * r + _kLuminanceGreen * g + _kLuminanceBlue * b;
 }
 

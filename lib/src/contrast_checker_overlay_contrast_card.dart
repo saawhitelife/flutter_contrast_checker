@@ -65,7 +65,7 @@ class _ContrastCard extends StatelessWidget {
                         Switch(
                           value: isDark,
                           onChanged: onThemeToggle,
-                          activeThumbColor: Theme.of(context).colorScheme.primary,
+                          activeColor: Theme.of(context).colorScheme.primary,
                           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                       ],
