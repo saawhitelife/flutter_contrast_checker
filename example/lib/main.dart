@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contrast_checker/flutter_contrast_checker.dart';
 
@@ -17,6 +18,7 @@ class ContrastDemoApp extends StatelessWidget {
         useMaterial3: true,
       ),
       builder: (context, child) => ContrastCheckerOverlay(
+        enabled: kDebugMode,
         initialForeground: Colors.red,
         initialBackground: Colors.white,
         child: child!,

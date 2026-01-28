@@ -29,6 +29,7 @@ Minimum supported Flutter SDK is `>=3.10.4`.
 Wrap your app (or any subtree) with the overlay:
 
 ```dart
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contrast_checker/flutter_contrast_checker.dart';
 
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: ContrastCheckerOverlay(
+        enabled: kDebugMode,
         child: Scaffold(
           appBar: AppBar(title: const Text('Contrast Demo')),
           body: const Center(child: Text('Tap the floating button')),
@@ -53,7 +55,7 @@ class MyApp extends StatelessWidget {
 
 ```dart
 return MaterialApp(
-  builder: (context, child) => ContrastCheckerOverlay(child: child!),
+  builder: (context, child) => ContrastCheckerOverlay(child: child ?? const SizedBox.shrink()),
   home: const HomeScreen(),
 );
 ```
