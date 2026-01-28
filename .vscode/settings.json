@@ -14,4 +14,5 @@
     "**/.fvm": true
   },
   "dart.runPubGetOnPubspecChanges": "always",
+  "dart.flutterSdkPath": ".fvm/versions/3.38.5"
 }
