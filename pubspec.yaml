@@ -1,6 +1,6 @@
 name: flutter_contrast_checker
 description: "Overlay contrast checker with draggable trigger, dual color pickers, and WCAG contrast scoring."
-version: 0.1.2
+version: 0.1.3
 repository: https://github.com/saawhitelife/flutter_contrast_checker
 homepage: https://github.com/saawhitelife/flutter_contrast_checker
 issue_tracker: https://github.com/saawhitelife/flutter_contrast_checker/issues

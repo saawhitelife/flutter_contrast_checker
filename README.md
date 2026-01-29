@@ -19,10 +19,10 @@ Add the dependency:
 
 ```yaml
 dependencies:
-  flutter_contrast_checker: ^0.1.0
+  flutter_contrast_checker: ^0.1.2
 ```
 
-Minimum supported Flutter SDK is `>=3.10.4`.
+Minimum supported Flutter SDK is `>=3.10.0`.
 
 ## Usage
 

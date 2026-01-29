@@ -1,3 +1,7 @@
+## 0.1.3
+
+- Updated README with corrected Flutter SDK minimum and latest dependency version.
+
 ## 0.1.2
 
 - Added a toggle to switch the contrast card between top and bottom positions.
