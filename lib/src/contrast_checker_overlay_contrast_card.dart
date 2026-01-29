@@ -6,14 +6,18 @@ class _ContrastCard extends StatelessWidget {
     required this.foreground,
     required this.background,
     required this.isDark,
+    required this.cardPosition,
     required this.onThemeToggle,
+    required this.onCardPositionToggle,
     required this.onClose,
   });
 
   final Color foreground;
   final Color background;
   final bool isDark;
+  final _ContrastCardPosition cardPosition;
   final ValueChanged<bool> onThemeToggle;
+  final VoidCallback onCardPositionToggle;
   final VoidCallback onClose;
 
   @override
@@ -71,6 +75,18 @@ class _ContrastCard extends StatelessWidget {
                           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                       ],
+                    ),
+                    IconButton(
+                      onPressed: onCardPositionToggle,
+                      icon: Icon(
+                        switch (cardPosition) {
+                          _ContrastCardPosition.top => Icons.vertical_align_top,
+                          _ContrastCardPosition.bottom => Icons.vertical_align_bottom,
+                        },
+                        size: 18,
+                      ),
+                      splashRadius: 18,
+                      color: theme.muted,
                     ),
                     IconButton(
                       onPressed: onClose,

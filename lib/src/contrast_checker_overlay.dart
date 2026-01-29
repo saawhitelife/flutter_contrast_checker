@@ -19,4 +19,5 @@ part 'contrast_checker_overlay_contrast_badge.dart';
 part 'contrast_checker_overlay_contrast_card.dart';
 part 'contrast_checker_overlay_floating_button.dart';
 part 'contrast_checker_overlay_lens_row.dart';
+part 'contrast_checker_overlay_position.dart';
 part 'contrast_checker_overlay_widget.dart';

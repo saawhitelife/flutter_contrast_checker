@@ -49,6 +49,7 @@ class _ContrastCheckerOverlayState extends State<ContrastCheckerOverlay> {
 
   bool _showPickers = false;
   bool _useDarkTheme = false;
+  _ContrastCardPosition _cardPosition = _ContrastCardPosition.bottom;
 
   void _openPickers() {
     setState(() => _showPickers = true);
@@ -56,6 +57,15 @@ class _ContrastCheckerOverlayState extends State<ContrastCheckerOverlay> {
 
   void _closePickers() {
     setState(() => _showPickers = false);
+  }
+
+  void _toggleCardPosition() {
+    setState(() {
+      _cardPosition = switch (_cardPosition) {
+        _ContrastCardPosition.top => _ContrastCardPosition.bottom,
+        _ContrastCardPosition.bottom => _ContrastCardPosition.top,
+      };
+    });
   }
 
   void _startDrag(LongPressStartDetails details) {
@@ -132,6 +142,61 @@ class _ContrastCheckerOverlayState extends State<ContrastCheckerOverlay> {
             return LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final Size size = constraints.biggest;
+                final _LensRow lensRow = _LensRow(
+                  foreground: _foreground,
+                  background: _background,
+                  onPickForeground: () => _pickColor(eyeDropperContext, true),
+                  onPickBackground: () => _pickColor(eyeDropperContext, false),
+                );
+                final _ContrastCard contrastCard = _ContrastCard(
+                  foreground: _foreground,
+                  background: _background,
+                  isDark: _useDarkTheme,
+                  cardPosition: _cardPosition,
+                  onThemeToggle: (bool value) {
+                    setState(() => _useDarkTheme = value);
+                  },
+                  onCardPositionToggle: _toggleCardPosition,
+                  onClose: _closePickers,
+                );
+                final List<Widget> overlayChildren = switch (_cardPosition) {
+                  _ContrastCardPosition.top => <Widget>[
+                      contrastCard,
+                      const SizedBox(height: 14),
+                      lensRow,
+                    ],
+                  _ContrastCardPosition.bottom => <Widget>[
+                      lensRow,
+                      const SizedBox(height: 14),
+                      contrastCard,
+                    ],
+                };
+                final Positioned overlay = switch (_cardPosition) {
+                  _ContrastCardPosition.top => Positioned(
+                      left: 0,
+                      right: 0,
+                      top: 0,
+                      child: SafeArea(
+                        minimum: const EdgeInsets.all(16),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: overlayChildren,
+                        ),
+                      ),
+                    ),
+                  _ContrastCardPosition.bottom => Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: SafeArea(
+                        minimum: const EdgeInsets.all(16),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: overlayChildren,
+                        ),
+                      ),
+                    ),
+                };
                 return Stack(
                   children: <Widget>[
                     widget.child,
@@ -147,35 +212,7 @@ class _ContrastCheckerOverlayState extends State<ContrastCheckerOverlay> {
                         ),
                       ),
                     if (_showPickers)
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        child: SafeArea(
-                          minimum: const EdgeInsets.all(16),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              _LensRow(
-                                foreground: _foreground,
-                                background: _background,
-                                onPickForeground: () => _pickColor(eyeDropperContext, true),
-                                onPickBackground: () => _pickColor(eyeDropperContext, false),
-                              ),
-                              const SizedBox(height: 14),
-                              _ContrastCard(
-                                foreground: _foreground,
-                                background: _background,
-                                isDark: _useDarkTheme,
-                                onThemeToggle: (bool value) {
-                                  setState(() => _useDarkTheme = value);
-                                },
-                                onClose: _closePickers,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      overlay,
                   ],
                 );
               },
